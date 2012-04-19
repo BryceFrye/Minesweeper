@@ -1,0 +1,99 @@
+body {
+  background-color: lightgray;
+}
+
+#controls {
+  background-color: lightgray;
+  width: 416px;
+  height: 100px;
+  margin: auto;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#settings {
+  display: inline-block;
+  width: 156px;
+  height: 100%;
+  float: left;
+  font-size: 20px;
+  line-height: 40px;
+}
+
+#check {
+  opacity: .2;
+}
+
+#cheat {
+  color: red;
+  opacity: .1;
+}
+
+#counter {
+  display: inline-block;
+  width: 156px;
+  height: 100%;
+  float: right;
+}
+
+#counterNum {
+  font-size: 80px;
+}
+
+#center {
+  display: inline-block;
+  width: 100px;
+  height: 100%;
+}
+
+#image {
+  margin: auto;
+  width: 70px;
+  height: 80px;
+  border-radius: 4px;
+}
+
+.smile {
+  background:url("mine_smile.png") no-repeat;
+}
+
+.concerned {
+  background:url("mine_concerned.png") no-repeat;
+}
+
+.explode {
+  background:url("mine_explode.png") no-repeat;
+}
+
+.win {
+  background:url("mine_win.png") no-repeat;
+}
+
+#newGame {
+  opacity: .2;
+}
+
+#boxes {
+  width: 416px;
+  height: 416px;
+  margin: auto;
+}
+
+.box {
+  background-color: ghostwhite;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  margin: 1px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.number {
+  position: relative;
+  top: 14px;
+  color: black;
+  margin: auto;
+  opacity: 0;
+}
