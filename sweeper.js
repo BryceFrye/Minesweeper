@@ -45,6 +45,7 @@ $(function(){
     $('span').removeClass('flagged');
     $('#image').removeClass('explode win')
     minesCount = 10;
+    $('#check').css("opacity", ".3");
     $("#counterNum").text(minesCount);
     setBoxes();
   });
