@@ -27,7 +27,7 @@ $(function(){
       var coord = (Math.floor(Math.random()*64)+1);
       //make sure that a mine isn't set to the same tile twice
       //and that the first tile clicked isn't a mine
-      if (jQuery.inArray(coord, mines) === -1 & coord !== firstClick) {
+      if (jQuery.inArray(coord, mines) === -1 && coord != firstClick){
         mines.push(coord);
       }
     }
@@ -76,7 +76,6 @@ $(function(){
     $("#image").addClass("concerned");
     if (clicks === 0){
       setMines(this.id);
-      console.log("first click");
     }
   });
   
