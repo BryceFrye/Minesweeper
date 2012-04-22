@@ -1,32 +1,33 @@
 $(function(){
   
+  var clicks = 0;
   setBoxes();
   
   //give each box a coordinate id
   function setBoxes(){
     var b = 0;
     var $boxes = $('.box');
-    while ( b < 64 ){
+    while (b < 64){
       $boxes.eq(b).attr('id', b+1);
       b++;
     }   
     var s = 0;
     var $numbers = $('.number');
-    while ( s < 64 ) {
+    while (s < 64){
       $numbers.eq(s).text(s+1);
       s++;
     }
-    setMines();
   }
   
   //randomly designate which ten boxes are mines
-  function setMines(){
+  function setMines(firstClick){
     minesCount = 10;
     mines = new Array;
-    while ( mines.length < 10 ){
+    while (mines.length < 10){
       var coord = (Math.floor(Math.random()*64)+1);
       //make sure that a mine isn't set to the same tile twice
-      if ( jQuery.inArray(coord, mines) == -1 & coord ) {
+      //and that the first tile clicked isn't a mine
+      if (jQuery.inArray(coord, mines) === -1 & coord !== firstClick) {
         mines.push(coord);
       }
     }
@@ -44,9 +45,10 @@ $(function(){
     $('.number').css("opacity", "0");
     $('span').removeClass('flagged');
     $('#image').removeClass('explode win')
-    minesCount = 10;
     $('#check').css("opacity", ".3");
+    minesCount = 10;
     $("#counterNum").text(minesCount);
+    clicks = 0;
     setBoxes();
   });
   
@@ -72,13 +74,18 @@ $(function(){
   
   $(".box").mousedown(function(){
     $("#image").addClass("concerned");
+    if (clicks === 0){
+      setMines(this.id);
+      console.log("first click");
+    }
   });
   
   //check each of the selected tile's neighbors to provide the count of adjacent mines
   $(".box").mouseup(function(e){
+    clicks++;
     $("#image").removeClass("concerned");
     //if a left click is performed on a tile without a flag...
-    if (e.which == 1 & !$("#"+this.id).hasClass('flagged')) {
+    if (e.which === 1 & !$("#"+this.id).hasClass('flagged')){
       neighbors = new Array;
       if ($("#"+this.id).hasClass("top")){
         foo = parseInt(this.id);
@@ -89,8 +96,8 @@ $(function(){
         neighbors.push(left(foo));
         var closeMines = 0;
         var n = 0;
-        while ( n < 5 ) {
-          if ( jQuery.inArray(neighbors[n], mines) != -1 ){
+        while (n < 5){
+          if (jQuery.inArray(neighbors[n], mines) !== -1){
             closeMines++;
           }
           n++;
@@ -105,8 +112,8 @@ $(function(){
         neighbors.push(left(foo));
         var closeMines = 0;
         var n = 0;
-        while ( n < 3 ) {
-          if ( jQuery.inArray(neighbors[n], mines) != -1 ){
+        while (n < 3){
+          if (jQuery.inArray(neighbors[n], mines) !== -1){
             closeMines++;
           }
           n++;
@@ -122,8 +129,8 @@ $(function(){
         neighbors.push(left(foo));
         var closeMines = 0;
         var n = 0;
-        while ( n < 5 ) {
-          if ( jQuery.inArray(neighbors[n], mines) != -1 ){
+        while (n < 5){
+          if (jQuery.inArray(neighbors[n], mines) !== -1){
             closeMines++;
           }
           n++;
@@ -137,8 +144,8 @@ $(function(){
         neighbors.push(left(foo));
         var closeMines = 0;
         var n = 0;
-        while ( n < 3 ) {
-          if ( jQuery.inArray(neighbors[n], mines) != -1 ){
+        while (n < 3){
+          if (jQuery.inArray(neighbors[n], mines) !== -1){
             closeMines++;
           }
           n++;
@@ -154,8 +161,8 @@ $(function(){
         neighbors.push(left(foo));
         var closeMines = 0;
         var n = 0;
-        while ( n < 5 ) {
-          if ( jQuery.inArray(neighbors[n], mines) != -1 ){
+        while (n < 5){
+          if (jQuery.inArray(neighbors[n], mines) !== -1){
             closeMines++;
           }
           n++;
@@ -169,8 +176,8 @@ $(function(){
         neighbors.push(right(foo));
         var closeMines = 0;
         var n = 0;
-        while ( n < 3 ) {
-          if ( jQuery.inArray(neighbors[n], mines) != -1 ){
+        while (n < 3){
+          if (jQuery.inArray(neighbors[n], mines) !== -1){
             closeMines++;
           }
           n++;
@@ -186,8 +193,8 @@ $(function(){
         neighbors.push(down(foo));
         var closeMines = 0;
         var n = 0;
-        while ( n < 5 ) {
-          if ( jQuery.inArray(neighbors[n], mines) != -1 ){
+        while (n < 5){
+          if (jQuery.inArray(neighbors[n], mines) !== -1){
             closeMines++;
           }
           n++;
@@ -201,8 +208,8 @@ $(function(){
         neighbors.push(down(foo));
         var closeMines = 0;
         var n = 0;
-        while ( n < 3 ) {
-          if ( jQuery.inArray(neighbors[n], mines) != -1 ){
+        while (n < 3){
+          if (jQuery.inArray(neighbors[n], mines) !== -1){
             closeMines++;
           }
           n++;
@@ -221,8 +228,8 @@ $(function(){
         neighbors.push(left(foo));
         var closeMines = 0;
         var n = 0;
-        while ( n < 8 ) {
-          if ( jQuery.inArray(neighbors[n], mines) != -1 ){
+        while (n < 8){
+          if (jQuery.inArray(neighbors[n], mines) !== -1){
             closeMines++;
           }
           n++;
@@ -231,16 +238,16 @@ $(function(){
         $("#"+this.id+" .number").css("opacity", "1");
       }
     //remove a flag if a flagged tile is right clicked
-    } else if ( e.which == 3 & $("#"+this.id).hasClass('flagged') ){
+    } else if (e.which === 3 & $("#"+this.id).hasClass('flagged')){
       $("#"+this.id).css("background-color", "ghostwhite").removeClass("flagged");
       minesCount++;
       $("#counterNum").text(minesCount);
     //flag a tile
-    } else if ( !$("#"+this.id).hasClass('flagged') ){
+    } else if (e.which === 3 & !$("#"+this.id).hasClass('flagged')){
       $("#"+this.id).css("background-color", "red").addClass("flagged");
       minesCount--;
       $("#counterNum").text(minesCount);
-      if (minesCount == 0){
+      if (minesCount === 0){
         $('#check').animate({opacity: 1}, 300);
       } else {
         $('#check').css("opacity", ".2");
@@ -250,8 +257,8 @@ $(function(){
   
   $(".box").mouseup(function(e){
     //if a clicked tile isn't flagged, change the tile color or end the game 
-    if ( e.which == 1 & !$("#"+this.id).hasClass('flagged') )  {
-      if ( jQuery.inArray(parseInt(this.id), mines) != -1 ){
+    if (e.which === 1 & !$("#"+this.id).hasClass('flagged')){
+      if (jQuery.inArray(parseInt(this.id), mines) !== -1){
         $("#"+this.id).css("background-color", "black");
         explodeMines();
       } else {
@@ -262,7 +269,7 @@ $(function(){
   
   function explodeMines(){
     var l = 0;
-    while ( l < 10 ){
+    while (l < 10){
       $("#"+mines[l]).css("background-color", "black");
       l++;
     }
@@ -270,18 +277,18 @@ $(function(){
   }
   
   function checkFlags(){
-    if (minesCount == 0) {
+    if (minesCount === 0){
       var f = 0;
-      while ( f < 10 ){
+      while (f < 10){
         if ($("#"+mines[f]).hasClass("flagged")) {
           f++;
         } else {
           return explodeMines();
         }
       }
-      if (f == 10){
+      if (f === 10){
         w = 0;
-        while ( w < 10 ){
+        while (w < 10){
           $("#"+mines[w]).css("background-color", "green");
           w++;
         }
@@ -292,7 +299,7 @@ $(function(){
   
   function cheat(){
     var m = 0;
-    while (m < 10) {
+    while (m < 10){
       $("#"+mines[m]).css("background-color", "red");
       m++;
     }
