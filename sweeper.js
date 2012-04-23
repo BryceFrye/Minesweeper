@@ -17,12 +17,12 @@ $(function(){
       $numbers.eq(s).text(s+1);
       s++;
     }
+    mines = new Array;
   }
   
   //randomly designate which ten boxes are mines
   function setMines(firstClick){
     minesCount = 10;
-    mines = new Array;
     while (mines.length < 10){
       var coord = (Math.floor(Math.random()*64)+1);
       //make sure that a mine isn't set to the same tile twice
@@ -81,10 +81,14 @@ $(function(){
   
   //check each of the selected tile's neighbors to provide the count of adjacent mines
   $(".box").mouseup(function(e){
-    clicks++;
+    //clicks++;
     $("#image").removeClass("concerned");
     //if a left click is performed on a tile without a flag...
     if (e.which === 1 & !$("#"+this.id).hasClass('flagged')){
+      clicks++;
+      if (clicks === 54){
+        checkFlags();
+      }
       neighbors = new Array;
       if ($("#"+this.id).hasClass("top")){
         foo = parseInt(this.id);
@@ -279,7 +283,7 @@ $(function(){
     if (minesCount === 0){
       var f = 0;
       while (f < 10){
-        if ($("#"+mines[f]).hasClass("flagged")) {
+        if ($("#"+mines[f]).hasClass("flagged")){
           f++;
         } else {
           return explodeMines();
@@ -294,10 +298,23 @@ $(function(){
         $("#image").addClass("win");
       } 
     }
+    else if (clicks === 54){
+      w = 0;
+      while (w < 10){
+        $("#"+mines[w]).css("background-color", "green");
+        w++;
+      }
+      $("#image").addClass("win");
+    }
   }
   
   function cheat(){
+    if (mines.length === 0){
+      setMines();
+      console.log("set");
+    }
     var m = 0;
+    $(".flagged").css("background-color", "ghostwhite");
     while (m < 10){
       $("#"+mines[m]).css("background-color", "red");
       m++;
