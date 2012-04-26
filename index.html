@@ -6,32 +6,24 @@
 <body>
   <div id="controls">
     <div id="settings">
-      <div id="check">Check Flags</div>
-      <div id="cheat">Cheat</div>
+      Grid Size:
+      <input type="text" id="grid" value="8"></input><span id="gridSquared"> 2</span><br />
+      <span style="font-size: 12px; opacity: .7;">(min:5 max:16)</span><br />
+      <hr>
+      # Of Mines:
+      <input type="text" id="mines" value="10"></input>
     </div>
     <div id="center">
-      <div id="image" class="smile"></div>
+      <input type="submit" value="" id="image" class="smile"></input>
       <div id="newGame">New Game</div>
     </div>
     <div id="counter">
-      Mines Left:
-      <div id="counterNum">10</div>
+      Flags Left:
+      <div id="counterNum"></div>
+      <div id="cheat">Cheat</div>
     </div>
   </div>
-  <div id="quadrants">
-    <span id="upperLeft"></span><span id="upperRight"></span>
-    <span id="lowerLeft"></span><span id="lowerRight"></span>
-  </div>
-  <div id="boxes">
-    <span class='box top-left'><div class="number"></div></span><span class='box top'><div class="number"></div></span><span class='box top'><div class="number"></div></span><span class='box top'><div class="number"></div></span><span class='box top'><div class="number"></div></span><span class='box top'><div class="number"></div></span><span class='box top'><div class="number"></div></span><span class='box top-right'><div class="number"></div></span>
-    <span class='box left'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box right'><div class="number"></div></span>
-    <span class='box left'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box right'><div class="number"></div></span>
-    <span class='box left'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box right'><div class="number"></div></span>
-    <span class='box left'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box right'><div class="number"></div></span>
-    <span class='box left'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box right'><div class="number"></div></span>
-    <span class='box left'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box'><div class="number"></div></span><span class='box right'><div class="number"></div></span>
-    <span class='box bottom-left'><div class="number"></div></span><span class='box bottom'><div class="number"></div></span><span class='box bottom'><div class="number"></div></span><span class='box bottom'><div class="number"></div></span><span class='box bottom'><div class="number"></div></span><span class='box bottom'><div class="number"></div></span><span class='box bottom'><div class="number"></div></span><span class='box bottom-right'><div class="number"></div></span>
-  </div>
+  <div id="boxes"></div>
   
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
   <script src="sweeper.js"></script>
